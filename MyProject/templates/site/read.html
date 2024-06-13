@@ -1,0 +1,20 @@
+{% extends 'layouts/layout.html' %}
+{% load static %}
+{% block title %}
+<title>Titulo da Página</title>
+{% endblock %}
+{% block content %}
+<div class="container">
+  {%if book.path %}
+  <img src="{{books.path.url}}" alt="books.name" width="200px" height="200px">
+  {%endif%}
+  <br>
+  <strong>Nome:</strong>{{item.name}}
+  <br>
+  <strong>Descrição:</strong>{{item.descript}}
+  <a href="{% url 'edit_book' books.id %}" class="btn btn-warning">Editar</a>
+  <a href="{% url 'delete_book' books.id %}" class="btn btn-danger">Deletar</a>
+</div>  
+  {% include 'partials/_footer.html' %}
+     
+{% endblock %}

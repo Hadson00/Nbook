@@ -1,0 +1,16 @@
+{% extends 'layouts/layout.html' %}
+{% load static %}
+{% block title %}
+<title>Titulo da Página</title>
+{% endblock %}
+{% block content %}
+    <form action="{% url 'create_book' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{forms.as_p}}
+      <button type="submit" class="btn btn-success">Criar Item</button>
+    </form>
+    <!--Footer Início-->  
+  {% include 'partials/_footer.html' %}
+    
+  <!--Footer Fim-->  
+{% endblock %}
