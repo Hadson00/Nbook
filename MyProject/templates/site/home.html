@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'layouts/layout.html' %}
 
 {% block content %}
-<div class="row">
+<div style="font-family: Roboto;" class="row m-5">
     {% if books %}
         {% for book in books %}
             <div class="col-md-4">
@@ -21,5 +21,7 @@
         {% endfor %}
     {% endif %}
 </div>
-<a href="{% url 'create_book' %}" class="btn btn-success">Adicionar Roupa</a>
+<div class="text-center">
+    <a href="{% url 'create_book' %}" class="btn btn-success m-3">Adicionar Livro</a>
+</div>
 {% endblock %}

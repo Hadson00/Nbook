@@ -7,12 +7,13 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    return render(request, 'site/index.html',{"books": Book.objects.all()})
+    books = Book.objects.all()
+    return render(request, 'site/index.html',{"books": books})
 
 @login_required
 def home(request):
-    book = Book.objects.all()
-    return render(request, 'site/home.html', {'books': book})
+    books = Book.objects.all()
+    return render(request, 'site/home.html', {'books': books})
 
 @login_required
 def like_book(request, book_id):
@@ -37,7 +38,7 @@ def card_detail(request, book_id):
     liked = False
     if request.user.is_authenticated:
         liked = Like.objects.filter(user=request.user, book=book).exists()
-    return render(request, 'site/card_detail.html', {'books': book, 'comments': comments, 'liked': liked})
+    return render(request, 'site/card_detail.html', {'book': book, 'comments': comments, 'liked': liked})
 
 @login_required
 def create(request):
@@ -46,7 +47,7 @@ def create(request):
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'item cadastrada com sucesso!')
+            messages.success(request, 'Livro cadastrado com sucesso!')
             return redirect('index')
         
     return render(request, "site/create.html", {"forms":form})
@@ -63,25 +64,6 @@ def edit(request, book_id):
     else:
         form = BookForm(instance=book)
     return render(request, "site/update.html",{"form":form, "books":book})
-
-@login_required
-def update(request, id):
-    try:
-        if request.method == "POST":
-            book = Book.objects.get(pk=id)
-            form = BookForm(request.POST, request.FILES, instance=book)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Livro foi alterada com sucesso!')
-                return redirect('index')
-    except Exception as e:
-        messages.error(request, e)
-        return redirect('index')
-
-@login_required            
-def read(request, id):
-    book = Book.objects.get(pk=id)
-    return render(request, "site/read.html", {"books":book})
 
 @login_required
 def delete(request, id):

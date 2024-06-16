@@ -9,7 +9,7 @@ class Book(models.Model):
     description = models.TextField()
 
     def total_likes(self):
-        return Like.objects.filter(clothing=self).count()
+        return Like.objects.filter(book=self).count()
 
     def __str__(self):
         return self.title

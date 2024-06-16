@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -8,17 +8,33 @@
         {% endblock %}
         <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-        <script src="{% static 'assets/js/bootstrap.bundle.js' %}"></script>
+        <style>
+            @font-face {
+                font-family: Roboto;
+                src: url("{% static 'assets/fonts/Roboto-Regular.ttf' %}") format(truetype);
+            }
+            @font-face {
+                font-family: Concert One;
+                src: url("{% static 'assets/fonts/ConcertOne-Regular.ttf' %}") format(truetype);
+            }
+        </style>
+        {% block style %}
+        {% endblock %}
+        {% block script %}
+        {% endblock %}
     </head>
 	<body>
-    {% include "partials/_nav.html" %}
-    {% include "partials/_alerts.html" %}
+        {% include "partials/_nav.html" %}
+        {% include "partials/_alerts.html" %}
 
-    {% block content %} 
-    {% endblock %}
-    
-    {% include "partials/_footer.html" %}
-    {% include "partials/_register.html" %}
-    {% include "partials/_login.html" %}
+        {% block content %} 
+        {% endblock %}
+
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+        {% include "partials/_footer.html" %}
+        {% include "partials/_register.html" %}
+        {% include "partials/_login.html" %}
+
 	</body>
 </html>

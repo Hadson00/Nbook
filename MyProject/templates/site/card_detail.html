@@ -48,40 +48,42 @@
 </script>
 {% endblock %}
 {% block content %}
-
-<div class="card">
-    <img class="card-img-top" src="{{ books.path.url }}" alt="{{ books.title }}">
-    <div class="card-body">
-        <h5 class="card-title">{{ books.title }}</h5>
-        <p class="card-text">{{ books.description }}</p>
-        <a href="{% url 'like_book' books.id %}" id="likeButton" class="like-button {% if liked %}liked{% endif %}">
-            <i class="fa {% if liked %}fa-thumbs-down{% else %}fa-thumbs-up{% endif %}"></i>
-            {% if user.is_authenticated %}
-                {% if liked %}
-                    {{ book.total_likes }}
+<div class="container mt-4">
+    <div style="font-family: Roboto;" class="card">
+        <img class="card-img-top" src="{{ book.path.url }}" alt="{{ book.title }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">{{ book.description }}</p>
+            <a href="{% url 'like_book' book.id %}" id="likeButton" class="like-button {% if liked %}liked{% endif %}">
+                <i class="fa {% if liked %}fa-thumbs-down{% else %}fa-thumbs-up{% endif %}"></i>
+                {% if user.is_authenticated %}
+                    {% if liked %}
+                        {{ book.total_likes }}
+                    {% else %}
+                        {{ book.total_likes }}
+                    {% endif %}
                 {% else %}
                     {{ book.total_likes }}
                 {% endif %}
-            {% else %}
-                {{ book.total_likes }}
-            {% endif %}
-        </a>
-        <form method="post" action="{% url 'comment_book' books.id %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <textarea class="form-control" name="content" rows="3" placeholder="Adicionar comentário"></textarea>
-            </div>
-            <button type="submit" class="btn btn-secondary">Comentar</button>
-        </form>
-        <h5 class="mt-4">Comentários:</h5>
-        {% for comment in comments %}
-            <div class="card mt-2">
-                <div class="card-body">
-                    <p class="card-text">{{ book.content }}</p>
-                    <p class="card-text"><small class="text-muted">por {{ books.user.username }}</small></p>
+            </a>
+            <form method="post" action="{% url 'comment_book' book.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="3" placeholder="Adicionar comentário"></textarea>
                 </div>
-            </div>
-        {% endfor %}
+                <button type="submit" class="btn btn-secondary">Comentar</button>
+            </form>
+            <h5 class="mt-4">Comentários:</h5>
+            {% for comment in comments %}
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <p class="card-text">{{ comment.content }}</p>
+                        <p class="card-text"><small class="text-muted">por {{ comment.user.username }}</small></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
+    
 {% endblock %}
