@@ -4,9 +4,13 @@
 <title>Titulo da Página</title>
 {% endblock %}
 {% block content %}
-    <form style="font-family: Roboto;" action="{% url 'create_book' %}" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{forms.as_p}}
-      <button type="submit" class="btn btn-success">Criar Item</button>
-    </form> 
+    <div class="container">
+      <form style="font-family: Roboto;" action="{% url 'create_book' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{forms.as_p}}
+        <div class="text-center my-3">
+          <button type="submit" class="btn btn-success">Criar Item</button>
+        </div>
+      </form> 
+    </div>
 {% endblock %}
